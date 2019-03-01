@@ -1,2 +1,5 @@
-curl https://raw.githubusercontent.com/kwyse/init/master/init.sh -sSf | sh
+# Execution
 
+```bash
+curl https://raw.githubusercontent.com/kwyse/init/master/init.sh -sSf | sh
+```
