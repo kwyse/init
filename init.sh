@@ -20,7 +20,7 @@ function find_package_installer {
     'Darwin')
       echo 'brew install' ;;
     'Linux')
-      echo 'sudo pacman -S' ;;
+      echo 'sudo pacman --sync --noconfirm' ;;
   esac
 }
 
@@ -33,7 +33,7 @@ for package in "${packages[@]}"
 do
   if ! [ -x "$(command -v $package)" ]; then
     echo "Installing $package"
-    echo $installer $package >/dev/null 2>&1
+    $installer $package
   fi
 done
 
