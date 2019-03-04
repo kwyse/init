@@ -43,5 +43,11 @@ if [ ! -d "$PROJECTS_DIR/dotfiles" ]; then
   (cd $PROJECTS_DIR && git clone -q $DOTFILES_REMOTE)
 else
   echo "Updating dotfiles"
-  (cd $PROJECTS_DIR/dotfiles && git pull -q)
+  (cd $PROJECTS_DIR/dotfiles && git pull -q origin master)
 fi
+
+for package in "${packages[@]}"
+do
+  echo "Symlinking ${package}"
+  ln -sfn ${PROJECTS_DIR}/dotfiles/${package} ${XDG_CONFIG_HOME}/${package}
+done
