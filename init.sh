@@ -24,7 +24,9 @@ function find_package_installer {
   esac
 }
 
-packages=(git)
+packages=(git ssh)
+declare -A package_names=( [git]=git [ssh]=openssh )
+full_symlinks=(git)
 installer=$(find_package_installer)
 
 set -e
@@ -32,8 +34,8 @@ set -e
 for package in "${packages[@]}"
 do
   if ! [ -x "$(command -v $package)" ]; then
-    echo "Installing $package"
-    $installer $package
+    echo "Installing ${package_names[$package]}"
+    $installer ${package_names[$package]}
   fi
 done
 
@@ -46,14 +48,14 @@ else
   (cd $PROJECTS_DIR/dotfiles && git pull -q origin master)
 fi
 
-for package in "${packages[@]}"
+for package in "${full_symlinks[@]}"
 do
   echo "Symlinking ${package}"
   ln -sfn ${PROJECTS_DIR}/dotfiles/${package} ${XDG_CONFIG_HOME}/${package}
 done
 
-echo "Symlinking GPG"
+echo "Symlinking gpg"
 ln -sfn ${PROJECTS_DIR}/dotfiles/gnupg/gpg-agent.conf ${HOME}/.gnupg/gpg-agent.conf
 
-echo "Symlinking SSH"
+echo "Symlinking ssh"
 ln -sfn ${PROJECTS_DIR}/dotfiles/ssh/config ${HOME}/.ssh/config
