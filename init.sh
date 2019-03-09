@@ -13,7 +13,7 @@
 # those. If ran just after it has already ran, it won't do anything.
 
 PROJECTS_DIR=$HOME/projects
-DOTFILES_REMOTE="https://github.com/kwyse/dotfiles"
+DOTFILES_REMOTE="git@github.com:kwyse/dotfiles.git"
 
 function find_package_installer {
   case $(uname -s) in
@@ -51,3 +51,9 @@ do
   echo "Symlinking ${package}"
   ln -sfn ${PROJECTS_DIR}/dotfiles/${package} ${XDG_CONFIG_HOME}/${package}
 done
+
+echo "Symlinking GPG"
+ln -sfn ${PROJECTS_DIR}/dotfiles/gnupg/gpg-agent.conf ${HOME}/.gnupg/gpg-agent.conf
+
+echo "Symlinking SSH"
+ln -sfn ${PROJECTS_DIR}/dotfiles/ssh/config ${HOME}/.ssh/config
