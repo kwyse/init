@@ -24,8 +24,8 @@ function find_package_installer {
   esac
 }
 
-packages=(git ssh)
-declare -A package_names=( [git]=git [ssh]=openssh )
+packages=(git ssh emacs)
+declare -A package_names=( [git]=git [ssh]=openssh [emacs]=emacs)
 full_symlinks=(git)
 installer=$(find_package_installer)
 
@@ -59,3 +59,6 @@ ln -sfn ${PROJECTS_DIR}/dotfiles/gnupg/gpg-agent.conf ${HOME}/.gnupg/gpg-agent.c
 
 echo "Symlinking ssh"
 ln -sfn ${PROJECTS_DIR}/dotfiles/ssh/config ${HOME}/.ssh/config
+
+echo "Symlinking emacs"
+ln -sfn ${PROJECT_DIR}/dotfiles/emacs.d/init.el ${HOME}/.emacs.d/init.el
